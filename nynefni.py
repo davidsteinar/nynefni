@@ -3,16 +3,16 @@ import collections
 import json
 
 class Nynefni:
-    def __init__(self, language, category, unique=False):
+    def __init__(self, language, category, N=3, unique=False):
         self.language = language
         self.category = category
-        self.N = 3
-        self.model_location = 'models/'+self.language+'_'+self.category+'_trigram.json'
-        self.constmodel = self.open_trigram_model(self.model_location)
-        self.model = self.open_trigram_model(self.model_location)
+        self.N = N
+        self.model_location = 'models/'+self.language+'_'+self.category+'_'+str(N)+'gram.json'
+        self.constmodel = self.open_ngram_model(self.model_location)
+        self.model = self.open_ngram_model(self.model_location)
         self.names =  self.open_names('data/'+self.language+'_'+self.category+'.txt') if unique else []
 
-    def open_trigram_model(self, location):
+    def open_ngram_model(self, location):
         with open(location, 'r') as f:
             model = json.load(f)
         return model
@@ -29,9 +29,9 @@ class Nynefni:
     def mix_language(self, mix_language, category, weight):
         self.model = self.constmodel
         mix_names = self.open_names('data/'+mix_language+'_'+category+'.txt')
-        self.names.append(mix_names) 
-        model_b_location = 'models/'+mix_language+'_'+category+'_trigram.json'
-        model_b = self.open_trigram_model(model_b_location)
+        self.names.append(mix_names)
+        model_b_location = 'models/'+mix_language+'_'+category+'_'+str(self.N)+'gram.json'
+        model_b = self.open_ngram_model(model_b_location)
         self.model = self.mix_models(model_b, self.model, weight)
     
     def generate_letter(self, key):
@@ -43,30 +43,31 @@ class Nynefni:
             if x <= 0:
                 return c
   
-    def generate_name(self,startkey=''):
+    def generate_name(self,startkey='', maxlength=20):
         initkey = ' '*(self.N-len(startkey)) + startkey
         if not bool(self.model[initkey]):#if key does not exist
             return
         
         iteration = 0
-        max_iterations = 1000000
+        max_iterations = 100000
         
         while True:
-            iteration += 1
-            if iteration > max_iterations:
-                return 'No name was found'
             name = initkey
             key = initkey
-            for _ in range(50):
+            for i in range(maxlength):
                 tmp = self.generate_letter(key)
                 name = name + tmp
                 key = name[-self.N:]
-                if name[-1] == ' ':
-                    finalname=name.strip()
+                if name[-1] == ' ' or i == maxlength-2:
+                    name=name.strip()
                     break
-            if finalname not in self.names:
-                self.names.append(finalname)
-                return finalname
+            if name not in self.names:
+                self.names.append(name.strip())
+                return name.strip()
+                
+            iteration += 1
+            if iteration > max_iterations:
+                return 'No name was found'
         
     def norm_model(self,model):
         def normalize(counter):

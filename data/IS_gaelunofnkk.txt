@@ -438,7 +438,6 @@ Sidda,1
 Siddi,1
 Sifa,1
 Siggi,1
-Siggústa,1
 Silli,1
 Simbi,1
 Sími,1

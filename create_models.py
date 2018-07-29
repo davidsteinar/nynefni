@@ -1,6 +1,11 @@
 import collections
 import json
 import glob
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--N', type=int)
+args = parser.parse_args()
 
 def train_char_ngram(name_list, N):
     #given a list of names
@@ -25,17 +30,16 @@ def norm_model(model):
         norm_model[key] = normalize(model[key])
     return norm_model
 
-N = 3
 for filename in glob.iglob('data/*.txt'):
     print(filename)
     with open(filename, 'r', encoding='utf-8') as f:
         name_list = [name for name in f.read().split()]
         
-    trigram_model = train_char_ngram(name_list, N)
-    trigram_model_norm = norm_model(trigram_model)
+    Ngram_model = train_char_ngram(name_list, args.N)
+    Ngram_model_norm = norm_model(Ngram_model)
         
-    model_location = 'models/'+filename.replace('data/','').replace('.txt','')+'_trigram.json'
+    model_location = 'models/'+filename.replace('data/','').replace('.txt','')+'_'+str(args.N)+'gram.json'
     
     with open(model_location, 'w') as outfile:
-        json.dump(trigram_model_norm, outfile)
+        json.dump(Ngram_model_norm, outfile)
 
