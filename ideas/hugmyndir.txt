@@ -1,15 +1,7 @@
-*gefið nafn, gefa líkur á stráka eða stelpunafni. Mögulega útfrá bigram líkindum - check!!
-
-*geta valið gamalt eða nýmóðins nafn
-
-*geta valið nafn úr goðafræði - check
-
-*geta valið mix úr dönsku, sænsku, ensku
-
-*breyta nafnagenerator þannig að hann geti tekið við byrjunarstaf, og spái fyrir um nafn óháð fyrri spá -check
-
-*fá inn lista af nöfnum sem eiga að hafa mikil áhrif á nýtt nafn
-
-*fall sem skilar nýju nafni sem er líkt gefnu nafni
-
 *lík nöfn vs nöfn sem passa saman
+
+*fjöldi íslenskra stafa
+
+*fjöldi atkvæða
+
+*hafa bakenda í python, en hafa generate_name() í javascript. Notandi velur hvað hann vill og sækir rétt módel úr bakenda.

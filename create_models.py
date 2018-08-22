@@ -30,7 +30,7 @@ def norm_model(model):
         norm_model[key] = normalize(model[key])
     return norm_model
 
-for filename in glob.iglob('data/*.txt'):
+for filename in glob.iglob('data/names_count/*.txt'):
     print(filename)
     with open(filename, 'r', encoding='utf-8') as f:
         name_list = [name for name in f.read().split()]
@@ -43,3 +43,18 @@ for filename in glob.iglob('data/*.txt'):
     with open(model_location, 'w') as outfile:
         json.dump(Ngram_model_norm, outfile)
 
+
+'''
+for filename in glob.iglob('data/names_count/*.txt'):
+    print(filename)
+    with open(filename, 'r', encoding='utf-8') as f:
+        names=[]
+        name_list = [name for name in f.read().split()]
+        for value in name_list:
+            name, count = value.split(',')
+            names.append(name)
+    
+    rec = filename.replace('data/names_count/','').replace('.txt','')
+    with open('data/names/'+rec+'.json', 'w') as outfile:
+        json.dump(names, outfile)
+'''
