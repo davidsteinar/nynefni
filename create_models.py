@@ -8,7 +8,6 @@ parser.add_argument('--N', type=int)
 args = parser.parse_args()
 
 def train_char_ngram(name_list, N):
-    #given a list of names
     lm = collections.defaultdict(collections.Counter)
     for value in name_list:
         name, count = value.split(',')
@@ -38,13 +37,13 @@ for filename in glob.iglob('data/names_count/*.txt'):
     Ngram_model = train_char_ngram(name_list, args.N)
     Ngram_model_norm = norm_model(Ngram_model)
         
-    model_location = 'models/'+filename.replace('data/','').replace('.txt','')+'_'+str(args.N)+'gram.json'
+    model_location = 'models/'+filename.replace('data/names_count/','').replace('.txt','')+'_'+str(args.N)+'gram.json'
     
     with open(model_location, 'w') as outfile:
         json.dump(Ngram_model_norm, outfile)
 
 
-'''
+
 for filename in glob.iglob('data/names_count/*.txt'):
     print(filename)
     with open(filename, 'r', encoding='utf-8') as f:
@@ -57,4 +56,3 @@ for filename in glob.iglob('data/names_count/*.txt'):
     rec = filename.replace('data/names_count/','').replace('.txt','')
     with open('data/names/'+rec+'.json', 'w') as outfile:
         json.dump(names, outfile)
-'''

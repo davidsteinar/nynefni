@@ -10,7 +10,7 @@ class Nynefni:
         self.model_location = 'models/'+self.language+'_'+self.category+'_'+str(N)+'gram.json'
         self.constmodel = self.open_ngram_model(self.model_location)
         self.model = self.open_ngram_model(self.model_location)
-        self.names =  self.open_names('data/'+self.language+'_'+self.category+'.txt') if unique else []
+        self.names = self.open_names('data/'+self.language+'_'+self.category+'.txt') if unique else []
 
     def open_ngram_model(self, location):
         with open(location, 'r') as f:
@@ -29,7 +29,7 @@ class Nynefni:
     def mix_language(self, mix_language, category, weight):
         self.model = self.constmodel
         mix_names = self.open_names('data/'+mix_language+'_'+category+'.txt')
-        self.names.append(mix_names)
+        self.names = self.names + mix_names
         model_b_location = 'models/'+mix_language+'_'+category+'_'+str(self.N)+'gram.json'
         model_b = self.open_ngram_model(model_b_location)
         self.model = self.mix_models(model_b, self.model, weight)
