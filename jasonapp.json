@@ -1,0 +1,16 @@
+{
+  "$jason": {
+    "head": {
+      "title": "Nýnefni"
+    },
+    "body": {
+      "background": {
+        "type": "html",
+        "url": "https://davidsteinar.github.io/app.html",
+        "action": {
+          "type": "$default"
+        }
+      }
+    }
+  }
+}
