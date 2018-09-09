@@ -5,3 +5,7 @@
 *fjöldi atkvæða
 
 *hafa bakenda í python, en hafa generate_name() í javascript. Notandi velur hvað hann vill og sækir rétt módel úr bakenda.
+
+*mixa saman bi og trigrams. Kannski hafa bigram líkur á staf í boði fyrir hvert trigram. Láta trigram líkurnar ráða. Nota set union.
+
+https://www.dyraaudkenni.is/dyr_leita.jsp?refresh=0.6240239242798582
