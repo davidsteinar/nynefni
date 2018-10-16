@@ -9,3 +9,5 @@
 *mixa saman bi og trigrams. Kannski hafa bigram líkur á staf í boði fyrir hvert trigram. Láta trigram líkurnar ráða. Nota set union.
 
 https://www.dyraaudkenni.is/dyr_leita.jsp?refresh=0.6240239242798582
+
+* model fyrir 22 grams sem er ekki *0.1

@@ -6,11 +6,11 @@ class Nynefni:
     def __init__(self, language, category, N=3, unique=False):
         self.language = language
         self.category = category
-        self.N = N
         self.model_location = 'models/'+self.language+'_'+self.category+'_'+str(N)+'gram.json'
         self.constmodel = self.open_ngram_model(self.model_location)
         self.model = self.open_ngram_model(self.model_location)
-        self.names = self.open_names('data/'+self.language+'_'+self.category+'.txt') if unique else []
+        self.names = self.open_names('data/names/'+self.language+'_'+self.category+'.json') if unique else []
+        self.N = 3 if N==23 else N
 
     def open_ngram_model(self, location):
         with open(location, 'r') as f:
@@ -18,17 +18,13 @@ class Nynefni:
         return model
     
     def open_names(self, location):
-        names = []
         with open(location, 'r', encoding='utf-8') as f:
-            name_list = [name for name in f.read().split()]
-            for value in name_list:
-                name, count = value.split(',')
-                names.append(name)
+            names = json.load(f)
         return names
         
     def mix_language(self, mix_language, category, weight):
         self.model = self.constmodel
-        mix_names = self.open_names('data/'+mix_language+'_'+category+'.txt')
+        mix_names = self.open_names('data/names/'+mix_language+'_'+category+'.json')
         self.names = self.names + mix_names
         model_b_location = 'models/'+mix_language+'_'+category+'_'+str(self.N)+'gram.json'
         model_b = self.open_ngram_model(model_b_location)
